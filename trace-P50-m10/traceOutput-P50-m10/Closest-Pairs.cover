@@ -1,0 +1,245 @@
+>>>>>> import argparse
+>>>>>> import random
+>>>>>> import trace
+       
+       
+>>>>>> class Point:
+           """
+           The Point class contains the x and y coordinates for a point
+           """
+       
+>>>>>>     def __init__(self, x: int = 0, y: int = 0) -> None:
+               """Initializes a new Point"""
+  100:         self.x = x
+  100:         self.y = y
+       
+>>>>>>     def __eq__(self, other: object, /) -> bool:
+               """Compares this instance with another object"""
+>>>>>>         if not isinstance(other, Point):
+>>>>>>             return False
+       
+>>>>>>         return (self.x == other.x) and (self.y == other.y)
+       
+>>>>>>     def __hash__(self) -> int:
+               """Returns a hash value for this instance"""
+   50:         return hash((self.x, self.y))
+       
+>>>>>>     def __str__(self) -> str:
+               """Returns a string representaion of this instance"""
+   70:         return f"({self.x},{self.y})"
+       
+>>>>>>     def __repr__(self) -> str:
+               """Returns a detailed representation of this instance"""
+>>>>>>         return f"Point(x={self.x}, y={self.y})"
+       
+       
+>>>>>> class Pair:
+           """
+           The Pair class contains two Points and the Manhattan Distance between them
+           """
+       
+>>>>>>     def __init__(
+>>>>>>         self, distance: int = 0, iPoint: Point = Point(), jPoint: Point = Point()
+>>>>>>     ) -> None:
+               """Initializes a new Pair"""
+ 1226:         self.distance = distance
+ 1226:         self.iPoint = iPoint
+ 1226:         self.jPoint = jPoint
+       
+>>>>>>     def __eq__(self, other: object, /) -> bool:
+               """Compares this instance with another object"""
+>>>>>>         if not isinstance(other, Pair):
+>>>>>>             return False
+       
+>>>>>>         return (
+>>>>>>             (self.distance == other.distance)
+>>>>>>             and (self.iPoint == other.iPoint)
+>>>>>>             and (self.jPoint == other.jPoint)
+               )
+       
+>>>>>>     def __hash__(self) -> int:
+               """Returns a hash value for the instance"""
+>>>>>>         return hash((self.distance, self.iPoint, self.jPoint))
+       
+>>>>>>     def __str__(self) -> str:
+               """Returns a string representaion of this instance"""
+   10:         return f"{self.distance}, {self.iPoint}, {self.jPoint}"
+       
+>>>>>>     def __repr__(self) -> str:
+               """Returns a detailed representation of this instance"""
+>>>>>>         return f"Pair(distance={self.distance}, iPoint={self.iPoint}, jPoint={self.jPoint})"
+       
+       
+>>>>>> def manhattanDistance(iPoint: Point, jPoint: Point) -> int:
+           """Computes Manhattan Distance between two points"""
+ 1225:     return abs(iPoint.x - jPoint.x) + abs(iPoint.y - jPoint.y)
+       
+       
+>>>>>> def closestPairs(P, m) -> list[Pair]:
+           """Performs the Closest Pairs algorithm"""
+           # List containing sorted list of Pairs of Points
+           # The list is the size of the total number of unique pairs
+    1:     D: list[Pair] = [Pair()] * (len(P) * (len(P) - 1) // 2)
+       
+           # Counter for the number of inserted Pairs
+    1:     insertedPairs = 0
+       
+           # Counter for the number of insertion shifts
+    1:     insertionShifts = 0
+       
+   50:     for i in range(0, len(P) - 1):
+ 1274:         for j in range(i + 1, len(P)):
+                   # Calculate Manhattan Distance and create Pair for insertion
+ 1225:             d = manhattanDistance(P[i], P[j])
+ 1225:             pair = Pair(d, P[i], P[j])
+       
+                   # Insert Pair into sorted array based on Manhattan Distance
+ 1225:             k = insertedPairs - 1
+337763:             while k >= 0 and D[k].distance > pair.distance:
+336538:                 D[k + 1] = D[k]
+336538:                 k -= 1
+336538:                 insertionShifts += 1
+ 1225:             D[k + 1] = pair
+       
+                   # Increment the counter for the number of inserted pairs
+ 1225:             insertedPairs += 1
+       
+           # Print algorithm results
+    1:     print(f"Inserted Pairs: {insertedPairs}")
+    1:     print(f"Insertion Shifts: {insertionShifts}")
+       
+           # Return
+    1:     if len(D) <= m:
+>>>>>>         return D
+           else:
+    1:         return D[:m]
+       
+       
+>>>>>> def generateInput(n: int) -> list[Point]:
+           """Generates a list of n unique points"""
+           # Use a set to force unique elements
+    1:     points = set()
+       
+           # Loop until points has n elements
+   51:     while len(points) < n:
+               # Use n as upper bound so we don't run out of numbers
+   50:         points.add(Point(random.randint(0, n), random.randint(0, n)))
+       
+           # Make points into a list to keep order consistent
+    1:     points = list(points)
+       
+    1:     return points
+       
+       
+>>>>>> def getArguments() -> argparse.Namespace:
+           """Get the program's arguments"""
+           # Program information
+>>>>>>     parser = argparse.ArgumentParser(
+>>>>>>         prog="Closest-Pairs",
+>>>>>>         description="Executes the Closest Pairs algorithm",
+           )
+       
+           # Run a trace
+>>>>>>     parser.add_argument(
+>>>>>>         "-t",
+>>>>>>         "--trace",
+>>>>>>         action="store_true",
+>>>>>>         help="Runs a trace on the algorithm",
+           )
+       
+           # Specify specific input file if desired
+>>>>>>     parser.add_argument(
+>>>>>>         "-i",
+>>>>>>         "--input",
+>>>>>>         action="store",
+>>>>>>         default="input.txt",
+>>>>>>         help="Specify input file name; can be used for specific inputs when the "
+               "'P' flag is omitted, otherwise will save input file to given location",
+           )
+       
+           # Number of Points to use in the Closest Pairs algorithm
+>>>>>>     parser.add_argument(
+>>>>>>         "-P",
+>>>>>>         "--numPoints",
+>>>>>>         action="store",
+>>>>>>         default=0,
+>>>>>>         help="The number of points to use in the Closest Pairs algorithm",
+           )
+       
+           # Number of Closests Pairs to file in the Closest Pairs algorithm
+>>>>>>     parser.add_argument(
+>>>>>>         "-m",
+>>>>>>         "--numPairs",
+>>>>>>         action="store",
+>>>>>>         default=0,
+>>>>>>         help="The number of closest pairs to look for in the Closest Pairs algorithm",
+           )
+       
+           # Output file
+>>>>>>     parser.add_argument(
+>>>>>>         "-o",
+>>>>>>         "--output",
+>>>>>>         action="store",
+>>>>>>         default="output.txt",
+>>>>>>         help="Specify output file name",
+           )
+       
+>>>>>>     return parser.parse_args()
+       
+       
+>>>>>> def main(args: argparse.Namespace) -> None:
+    1:     P: list[Point] = []
+    1:     m: int = 0
+    1:     D: list[Pair] = []
+       
+           # Generate
+    1:     if args.numPoints is not None:
+    2:         with open(args.input, "w") as f:
+   51:             for point in generateInput(int(args.numPoints)):
+   50:                 print(point, file=f)
+       
+           # Input
+    1:     try:
+    2:         with open(args.input, "r") as f:
+   51:             for line in f.readlines():
+   50:                 P.append(Point(*eval(line)))
+>>>>>>     except FileNotFoundError:
+>>>>>>         print(f"Could not find {args.input}")
+>>>>>>         exit()
+       
+           # Number of closest pairs
+    1:     m = int(args.numPairs)
+           # m = len(P) * (len(P) - 1) // 2  # Max number of pairs for debugging
+       
+           # Run the Closest Pairs algorithm
+    1:     D = closestPairs(P, m)
+       
+           # Save the output
+    2:     with open(args.output, "w") as f:
+   11:         for pair in D:
+   10:             print(pair, file=f)
+       
+       
+>>>>>> if __name__ == "__main__":
+           # Get the program's arguments
+>>>>>>     args = getArguments()
+       
+           # Run a trace
+>>>>>>     if args.trace:
+               # Create Trace object
+>>>>>>         tracer = trace.Trace(
+>>>>>>             ignoredirs=[],
+>>>>>>             trace=0,
+>>>>>>             count=1,
+               )
+       
+               # Run trace
+>>>>>>         tracer.run("main(args)")
+       
+               # Make a report
+>>>>>>         r = tracer.results()
+>>>>>>         r.write_results(show_missing=True, coverdir="traceOutput")
+       
+           # Run normally
+           else:
+>>>>>>         main(args)
