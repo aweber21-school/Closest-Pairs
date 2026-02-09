@@ -27,7 +27,7 @@ Closest-Pairs
 |     |           |---> random.cover
 |     |---> ...
 |---> testCases/
-      |---> constant-P/
+      |---> constant-m/
       |     |---> testCase-P#-m#/
       |     |     |---> input-P#-m#.txt
       |     |     |---> output-P#-m#.txt
@@ -36,7 +36,7 @@ Closest-Pairs
       |     |           |---> Closest-Pairs.cover
       |     |           |---> random.cover
       |     |---> ...
-      |---> constant-m/
+      |---> constant-P/
             |---> testCase-P#-m#/
             |     |---> input-P#-m#.txt
             |     |---> output-P#-m#.txt
