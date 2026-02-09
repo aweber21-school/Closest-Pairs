@@ -78,13 +78,13 @@ def manhattanDistance(iPoint: Point, jPoint: Point) -> int:
 def closestPairs(P, m) -> list[Pair]:
     """Performs the Closest Pairs algorithm"""
     # List containing sorted list of Pairs of Points
-    # The list is the size of the total number of unique pairs
-    D: list[Pair] = [Pair()] * (len(P) * (len(P) - 1) // 2)
+    # The list is the size of the number of closest Pairs desired
+    D: list[Pair] = [Pair()] * m
 
-    # Counter for the number of inserted Pairs
-    insertedPairs = 0
+    # Counter for the number of Pairs evaluated
+    evaluatedPairs = 0
 
-    # Counter for the number of insertion shifts
+    # Counter for the number of shifts executed for insertion
     insertionShifts = 0
 
     for i in range(0, len(P) - 1):
@@ -94,25 +94,27 @@ def closestPairs(P, m) -> list[Pair]:
             pair = Pair(d, P[i], P[j])
 
             # Insert Pair into sorted array based on Manhattan Distance
-            k = insertedPairs - 1
-            while k >= 0 and D[k].distance > pair.distance:
-                D[k + 1] = D[k]
-                k -= 1
-                insertionShifts += 1
-            D[k + 1] = pair
+            k = min([evaluatedPairs, m]) - 1
+            if evaluatedPairs < m or pair.distance < D[k].distance:
+                while k >= 0 and pair.distance < D[k].distance:
+                    if k < m - 1:
+                        D[k + 1] = D[k]
+                    k -= 1
 
-            # Increment the counter for the number of inserted pairs
-            insertedPairs += 1
+                    # Increment the counter for the number of insertion shifts
+                    insertionShifts += 1
+
+                D[k + 1] = pair
+
+            # Increment the counter for the number of evaluated pairs
+            evaluatedPairs += 1
 
     # Print algorithm results
-    print(f"Inserted Pairs: {insertedPairs}")
+    print(f"Evaluated Pairs: {evaluatedPairs}")
     print(f"Insertion Shifts: {insertionShifts}")
 
     # Return
-    if len(D) <= m:
-        return D
-    else:
-        return D[:m]
+    return D[:min([evaluatedPairs, m])]
 
 
 def generateInput(n: int) -> list[Point]:
@@ -209,7 +211,6 @@ def main(args: argparse.Namespace) -> None:
 
     # Number of closest pairs
     m = int(args.numPairs)
-    # m = len(P) * (len(P) - 1) // 2  # Max number of pairs for debugging
 
     # Run the Closest Pairs algorithm
     D = closestPairs(P, m)
