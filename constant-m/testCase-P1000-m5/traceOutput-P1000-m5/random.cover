@@ -245,12 +245,12 @@
 >>>>>>     def _randbelow_with_getrandbits(self, n):
                "Return a random int in the range [0,n).  Defined for n > 0."
        
-  100:         getrandbits = self.getrandbits
-  100:         k = n.bit_length()
-  100:         r = getrandbits(k)  # 0 <= r < 2**k
-  133:         while r >= n:
-   33:             r = getrandbits(k)
-  100:         return r
+ 2002:         getrandbits = self.getrandbits
+ 2002:         k = n.bit_length()
+ 2002:         r = getrandbits(k)  # 0 <= r < 2**k
+ 2039:         while r >= n:
+   37:             r = getrandbits(k)
+ 2002:         return r
        
 >>>>>>     def _randbelow_without_getrandbits(self, n, maxsize=1<<BPF):
                """Return a random int in the range [0,n).  Defined for n > 0.
@@ -302,8 +302,8 @@
        
                # This code is a bit messy to make it fast for the
                # common case while still doing adequate error checking.
-  100:         istart = _index(start)
-  100:         if stop is None:
+ 2002:         istart = _index(start)
+ 2002:         if stop is None:
                    # We don't check for "step != 1" because it hasn't been
                    # type checked and converted to an integer yet.
 >>>>>>             if step is not _ONE:
@@ -313,13 +313,13 @@
 >>>>>>             raise ValueError("empty range for randrange()")
        
                # Stop argument supplied.
-  100:         istop = _index(stop)
-  100:         width = istop - istart
-  100:         istep = _index(step)
+ 2002:         istop = _index(stop)
+ 2002:         width = istop - istart
+ 2002:         istep = _index(step)
                # Fast path.
-  100:         if istep == 1:
-  100:             if width > 0:
-  100:                 return istart + self._randbelow(width)
+ 2002:         if istep == 1:
+ 2002:             if width > 0:
+ 2002:                 return istart + self._randbelow(width)
 >>>>>>             raise ValueError(f"empty range in randrange({start}, {stop})")
        
                # Non-unit step argument supplied.
@@ -337,7 +337,7 @@
                """Return random integer in range [a, b], including both end points.
                """
        
-  100:         return self.randrange(a, b+1)
+ 2002:         return self.randrange(a, b+1)
        
        
            ## -------------------- sequence methods  -------------------

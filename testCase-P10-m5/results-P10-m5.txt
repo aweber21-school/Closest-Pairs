@@ -1,2 +1,0 @@
-Inserted Pairs: 45
-Insertion Shifts: 456

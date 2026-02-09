@@ -1,2 +1,2 @@
-Inserted Pairs: 45
-Insertion Shifts: 388
+Evaluated Pairs: 45
+Insertion Shifts: 476

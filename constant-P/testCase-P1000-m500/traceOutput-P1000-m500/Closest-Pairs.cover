@@ -10,8 +10,8 @@
        
 >>>>>>     def __init__(self, x: int = 0, y: int = 0) -> None:
                """Initializes a new Point"""
-   20:         self.x = x
-   20:         self.y = y
+ 2000:         self.x = x
+ 2000:         self.y = y
        
 >>>>>>     def __eq__(self, other: object, /) -> bool:
                """Compares this instance with another object"""
@@ -22,11 +22,11 @@
        
 >>>>>>     def __hash__(self) -> int:
                """Returns a hash value for this instance"""
-   10:         return hash((self.x, self.y))
+ 1000:         return hash((self.x, self.y))
        
 >>>>>>     def __str__(self) -> str:
                """Returns a string representaion of this instance"""
-  100:         return f"({self.x},{self.y})"
+ 2000:         return f"({self.x},{self.y})"
        
 >>>>>>     def __repr__(self) -> str:
                """Returns a detailed representation of this instance"""
@@ -42,9 +42,9 @@
 >>>>>>         self, distance: int = 0, iPoint: Point = Point(), jPoint: Point = Point()
 >>>>>>     ) -> None:
                """Initializes a new Pair"""
-   46:         self.distance = distance
-   46:         self.iPoint = iPoint
-   46:         self.jPoint = jPoint
+499501:         self.distance = distance
+499501:         self.iPoint = iPoint
+499501:         self.jPoint = jPoint
        
 >>>>>>     def __eq__(self, other: object, /) -> bool:
                """Compares this instance with another object"""
@@ -63,7 +63,7 @@
        
 >>>>>>     def __str__(self) -> str:
                """Returns a string representaion of this instance"""
-   45:         return f"{self.distance}, {self.iPoint}, {self.jPoint}"
+  500:         return f"{self.distance}, {self.iPoint}, {self.jPoint}"
        
 >>>>>>     def __repr__(self) -> str:
                """Returns a detailed representation of this instance"""
@@ -72,7 +72,7 @@
        
 >>>>>> def manhattanDistance(iPoint: Point, jPoint: Point) -> int:
            """Computes Manhattan Distance between two points"""
-   45:     return abs(iPoint.x - jPoint.x) + abs(iPoint.y - jPoint.y)
+499500:     return abs(iPoint.x - jPoint.x) + abs(iPoint.y - jPoint.y)
        
        
 >>>>>> def closestPairs(P, m) -> list[Pair]:
@@ -87,27 +87,27 @@
            # Counter for the number of shifts executed for insertion
     1:     insertionShifts = 0
        
-   10:     for i in range(0, len(P) - 1):
-   54:         for j in range(i + 1, len(P)):
+ 1000:     for i in range(0, len(P) - 1):
+500499:         for j in range(i + 1, len(P)):
                    # Calculate Manhattan Distance and create Pair for insertion
-   45:             d = manhattanDistance(P[i], P[j])
-   45:             pair = Pair(d, P[i], P[j])
+499500:             d = manhattanDistance(P[i], P[j])
+499500:             pair = Pair(d, P[i], P[j])
        
                    # Insert Pair into sorted array based on Manhattan Distance
-   45:             k = min([evaluatedPairs, m]) - 1
-   45:             if evaluatedPairs < m or pair.distance < D[k].distance:
-  521:                 while k >= 0 and pair.distance < D[k].distance:
-  476:                     if k < m - 1:
-  476:                         D[k + 1] = D[k]
-  476:                     k -= 1
+499500:             k = min([evaluatedPairs, m]) - 1
+499500:             if evaluatedPairs < m or pair.distance < D[k].distance:
+920334:                 while k >= 0 and pair.distance < D[k].distance:
+916450:                     if k < m - 1:
+913066:                         D[k + 1] = D[k]
+916450:                     k -= 1
        
                            # Increment the counter for the number of insertion shifts
-  476:                     insertionShifts += 1
+916450:                     insertionShifts += 1
        
-   45:                 D[k + 1] = pair
+ 3884:                 D[k + 1] = pair
        
                    # Increment the counter for the number of evaluated pairs
-   45:             evaluatedPairs += 1
+499500:             evaluatedPairs += 1
        
            # Print algorithm results
     1:     print(f"Evaluated Pairs: {evaluatedPairs}")
@@ -123,9 +123,9 @@
     1:     points = set()
        
            # Loop until points has n elements
-   11:     while len(points) < n:
+ 1001:     while len(points) < n:
                # Use n as upper bound so we don't run out of numbers
-   10:         points.add(Point(random.randint(0, n), random.randint(0, n)))
+ 1000:         points.add(Point(random.randint(0, n), random.randint(0, n)))
        
            # Make points into a list to keep order consistent
     1:     points = list(points)
@@ -197,14 +197,14 @@
            # Generate
     1:     if args.numPoints is not None:
     2:         with open(args.input, "w") as f:
-   11:             for point in generateInput(int(args.numPoints)):
-   10:                 print(point, file=f)
+ 1001:             for point in generateInput(int(args.numPoints)):
+ 1000:                 print(point, file=f)
        
            # Input
     1:     try:
     2:         with open(args.input, "r") as f:
-   11:             for line in f.readlines():
-   10:                 P.append(Point(*eval(line)))
+ 1001:             for line in f.readlines():
+ 1000:                 P.append(Point(*eval(line)))
 >>>>>>     except FileNotFoundError:
 >>>>>>         print(f"Could not find {args.input}")
 >>>>>>         exit()
@@ -217,8 +217,8 @@
        
            # Save the output
     2:     with open(args.output, "w") as f:
-   46:         for pair in D:
-   45:             print(pair, file=f)
+  501:         for pair in D:
+  500:             print(pair, file=f)
        
        
 >>>>>> if __name__ == "__main__":

@@ -248,8 +248,8 @@
    20:         getrandbits = self.getrandbits
    20:         k = n.bit_length()
    20:         r = getrandbits(k)  # 0 <= r < 2**k
-   37:         while r >= n:
-   17:             r = getrandbits(k)
+   33:         while r >= n:
+   13:             r = getrandbits(k)
    20:         return r
        
 >>>>>>     def _randbelow_without_getrandbits(self, n, maxsize=1<<BPF):

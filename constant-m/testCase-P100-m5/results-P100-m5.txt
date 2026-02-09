@@ -1,0 +1,2 @@
+Evaluated Pairs: 4950
+Insertion Shifts: 82
