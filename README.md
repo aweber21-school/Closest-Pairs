@@ -17,31 +17,31 @@ algorithm, traces, and test cases. The file structure is shown below:
 Closest-Pairs
 |---> README.md
 |---> Closest-Pairs.py
-|---> traces
-|     |---> trace-P#-m#
+|---> traces/
+|     |---> trace-P#-m#/
 |     |     |---> input-P#-m#.txt
 |     |     |---> output-P#-m#.txt
 |     |     |---> results-P#-m#.txt
-|     |     |---> traceOutput-P#-m#
+|     |     |---> traceOutput-P#-m#/
 |     |           |---> Closest-Pairs.cover
 |     |           |---> random.cover
 |     |---> ...
-|---> testCases
-      |---> constant-P
-      |     |---> testCase-P#-m#
+|---> testCases/
+      |---> constant-P/
+      |     |---> testCase-P#-m#/
       |     |     |---> input-P#-m#.txt
       |     |     |---> output-P#-m#.txt
       |     |     |---> results-P#-m#.txt
-      |     |     |---> traceOutput-P#-m#
+      |     |     |---> traceOutput-P#-m#/
       |     |           |---> Closest-Pairs.cover
       |     |           |---> random.cover
       |     |---> ...
-      |---> constant-m
-            |---> testCase-P#-m#
+      |---> constant-m/
+            |---> testCase-P#-m#/
             |     |---> input-P#-m#.txt
             |     |---> output-P#-m#.txt
             |     |---> results-P#-m#.txt
-            |     |---> traceOutput-P#-m#
+            |     |---> traceOutput-P#-m#/
             |           |---> Closest-Pairs.cover
             |           |---> random.cover
             |---> ...
