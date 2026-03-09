@@ -14,6 +14,7 @@ python Closest-Pairs.py -t -P 500 -m 50 -i inputFile.txt -o outputFile.txt
 This repository contains this README, the source code for the Closest Pairs
 algorithm, traces, and test cases. The file structure is shown below:
 
+```
 Closest-Pairs
 |---> README.md
 |---> Closest-Pairs.py
@@ -45,3 +46,4 @@ Closest-Pairs
             |           |---> Closest-Pairs.cover
             |           |---> random.cover
             |---> ...
+```
